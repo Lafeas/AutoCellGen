@@ -21,8 +21,10 @@ dr=$input/abkcell.style
 out=$path/output/placement  
 mkdir -p $out 
 
+cell=$1
+
 PlacementDir=$path/csyn_fp  
 
-$PlacementDir/$mode -i $cdl -d $dr -o $out 
+$PlacementDir/$mode -i $cdl -d $dr -o $out -c $cell
 
 mv $out/summary.txt $out/../

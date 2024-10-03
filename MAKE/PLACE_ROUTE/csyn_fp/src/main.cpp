@@ -133,11 +133,10 @@ int main(int argc, char **argv) {
     
     parsing_DR(dr_path);
 
-    //fs::path ref_path = fs::path("/home/users/khbaek/CAD/csyn_fp/inputs/ours_SDFF_HD/cell");
-    //run_reference(ref_path);
-
-    //return 0;
-
+    const std::string &cell_data = agparser.getCmdOption("-c");
+    std::string cell_name;
+    if (!cell_data.empty()) cell_name = cell_data;
+    else cell_name = "A2O1A1Ixp33_ASAP7_75t_R";
 
     // Find input cdl
     const std::string &input_name = agparser.getCmdOption("-i");
@@ -171,10 +170,9 @@ int main(int argc, char **argv) {
     std::ofstream out(output_path.string() + "/summary.txt");
 
     for (int i = 0; i < ncell; i++) {
-        //if (!(i == 52 || (i >= 65 && i <= 72) || i == 79 || (i >= 85 && i <= 87))) continue;
         Cell &temp = l.cells[i];
 
-        //if (temp.name != "AO333x1_ASAP7_6t_R") continue;
+        if(temp.name != cell_name) continue;
 		
         std::cout << output_path << std::endl;
         out << "(" << i << ") ";

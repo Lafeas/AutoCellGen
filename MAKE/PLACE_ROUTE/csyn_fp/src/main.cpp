@@ -240,6 +240,7 @@ int main(int argc, char **argv) {
             */
 
             // Routing
+            /*
             for (int width = placer.min_width; width <= placer.min_width + setting.relaxation; width++) {
                 //if (width - placer.min_width < 2) continue;
                 if (placer.solutions.find(width) != placer.solutions.end()) {
@@ -301,7 +302,7 @@ int main(int argc, char **argv) {
                     if (is_m1_routable) break;
                 }
 
-            }
+            }*/
        }
 
        else { 
@@ -337,6 +338,7 @@ int main(int argc, char **argv) {
             }*/
            
             // Routing
+            /*
             for (int width = placer.min_width; width <= placer.min_width + setting.relaxation; width++) {
                 //if (width != placer.min_width + setting.relaxation) continue;
                 if (placer.solutions.find(width) != placer.solutions.end()) {
@@ -400,7 +402,7 @@ int main(int argc, char **argv) {
 
                     if (is_m1_routable) break;
                 }
-            }
+            }*/
        }
        out << std::endl;
     }

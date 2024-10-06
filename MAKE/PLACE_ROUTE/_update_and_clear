@@ -1,4 +1,0 @@
-#!/bin/bash 
-
-source ${PWD}/:update
-source ${PWD}/:clear 

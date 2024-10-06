@@ -1,0 +1,5 @@
+(1) Cell name : A2O1A1O1Ixp25_ASAP7_75t_R
+The number of transistors = 10
+Min #CPP = 9
+Placement time : 266ms
+

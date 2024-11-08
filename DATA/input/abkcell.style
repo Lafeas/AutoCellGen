@@ -29,10 +29,10 @@ MIN_OD_JOG 1 # MIN_OD_JOG is longer than 1; MIN_OD_JOG 2
 FOLDING_STYLE dynamic # static or dynamic
 
 # max fin number of nmos
-NMOS_MAX_FIN 3
+NMOS_MAX_FIN 2
 
 # max fin number of pmos
-PMOS_MAX_FIN 3
+PMOS_MAX_FIN 2
 
 # DO NOT FIX
 MAX_STEP 10
@@ -43,11 +43,9 @@ MAX_STEP 10
 #############################################
 
 # DO NOT FIX
-AVOID_GATECUT false
-
+AVOID_GATECUT true
 # cross couple net gate number
 XC_NUM 2
-
 
 #############################################
 ############### pruning #####################
@@ -63,7 +61,6 @@ BRANCH_BOUND true
 REFINE_SOL false
 
 AVOID_GATECUT true
-
 
 #############################################
 ################ route ######################

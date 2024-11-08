@@ -9,10 +9,11 @@ input=$path/../../DATA/input
 
 #cdl
 ######### asap7sc7p5t netlist ############
-cdl=$input/asap7sc7p5t.sp
+#cdl=$input/asap7sc7p5t.sp
 ########## asap7sc6t netlist #############
 #cdl=$input/asap7sc6t.sp
-# cdl=$1
+
+cdl=$1
 
 #Placement configuration
 dr=$input/abkcell.style  
@@ -21,7 +22,7 @@ dr=$input/abkcell.style
 out=$path/output/placement  
 mkdir -p $out 
 
-cell=$1
+cell=$2
 
 PlacementDir=$path/csyn_fp  
 

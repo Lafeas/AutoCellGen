@@ -1,7 +1,0 @@
-NAND3x1_ASAP7_75t_R
-A
-B
-C
-VDD
-VSS
-Y

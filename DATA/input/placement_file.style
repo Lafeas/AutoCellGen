@@ -15,7 +15,7 @@ TECH asap7v3
 FIN_DIFF_GAP 0
 
 # diffusion gap number when the net is different
-NET_DIFF_GAP 1:
+NET_DIFF_GAP 2:
 
 # od jog rule number
 MIN_OD_JOG 1 # MIN_OD_JOG is longer than 1; MIN_OD_JOG 2

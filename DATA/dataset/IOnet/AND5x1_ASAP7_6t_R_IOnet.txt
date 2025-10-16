@@ -1,9 +1,0 @@
-AND5x1_ASAP7_6t_R
-A
-B
-C
-D
-E
-VDD
-VSS
-Y

@@ -36,12 +36,12 @@
 
 enum class transtype {NMOS, PMOS};
 
-class Point {
+class dbPoint {
 public:
-    Point () : y(-1), x(-1) {}
-    Point (int y_, int x_) : y(y_), x(x_) {}
+    dbPoint () : y(-1), x(-1) {}
+    dbPoint (int y_, int x_) : y(y_), x(x_) {}
 
-    bool operator==(const Point& p) const {
+    bool operator==(const dbPoint& p) const {
         return x == p.x && y == p.y;
     }
 

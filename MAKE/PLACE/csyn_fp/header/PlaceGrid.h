@@ -70,7 +70,7 @@ public:
     std::vector<double> hor_cong, ver_cong;
 
 
-    std::unordered_map<std::string, std::vector<std::vector<Point>>> contact_list;
+    std::unordered_map<std::string, std::vector<std::vector<dbPoint>>> contact_list;
     
     int cellWidth;
 

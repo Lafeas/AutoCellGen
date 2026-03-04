@@ -54,6 +54,11 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 target_link_libraries(placement PRIVATE Threads::Threads)
 
+# GCC 8 and older need explicit std::filesystem linkage.
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9)
+  target_link_libraries(placement PRIVATE stdc++fs)
+endif()
+
 
 # Linker Flags
 #set_target_properties(main PROPERTIES LINK_FLAGS "-static -W1,--whole-archive -rdynamic -lpthread -W1,--no-whole-archive")

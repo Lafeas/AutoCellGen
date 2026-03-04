@@ -176,7 +176,7 @@ void PlaceGrid::print_place (Cell& cell, fs::path outPath, int num) {
 
 void PlaceGrid::find_contact_list () {
     
-    std::vector<Point> contacts;
+    std::vector<dbPoint> contacts;
 
     // Diffusion
     for (int i = 0; i < cellWidth; i++) {
@@ -355,7 +355,7 @@ void PlaceGrid::cal_density () {
         if (contacts.size() <= 1) continue;
 
         // Get bounding box
-        Point lt{-1, -1}, rb{-1, -1};
+        dbPoint lt{-1, -1}, rb{-1, -1};
 
         for (auto& points : contacts) {
             for (auto& point : points) {

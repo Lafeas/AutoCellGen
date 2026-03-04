@@ -355,23 +355,37 @@ void Placer::printSolution(std::string outPath) {
 
     for (int width = min_width; width <= min_width + setting.relaxation; width++) {    
         std::string out_path = outPath.substr(0, outPath.length() - 4) + "_w" + std::to_string(width + 2) + ".txt";
+        std::string json_path = outPath.substr(0, outPath.length() - 4) + "_w" + std::to_string(width + 2) + ".json";
         std::ofstream out(out_path);
+        std::ofstream out_json(json_path);
+        out_json << "{\n";
+        out_json << "  \"cell\": \"" << cell.name << "\",\n";
+        out_json << "  \"width\": " << (width + 2) << ",\n";
+        out_json << "  \"columns\": [\n";
         if (solutions.find(width) != solutions.end()) {
-            int counter = 1;
-            std::cout << "The number of solutions of width " << width << " : " << solutions[width].size() << std::endl;
-            //out << "The number of solutions of width " << width << " : " << solutions[width].size() << std::endl;
-            for (const auto& solution : solutions[width]) {
-                out << "-------- Solution " << counter++ << " --------" << std::endl;
-                for (int i = 0; i < solution.cellWidth; i++) {
-                    out << "[Column " << i + 1 << "]" << std::endl;
-                    out << "NMOS : " << solution.nmos[i].name << "(" << solution.nmos[i].nfin << ") [" << solution.nmos[i].left << " " << solution.nmos[i].gate << " " << solution.nmos[i].right << "], ";
-                    out << "PMOS : " << solution.pmos[i].name << "(" << solution.pmos[i].nfin << ") [" << solution.pmos[i].left << " " << solution.pmos[i].gate << " " << solution.pmos[i].right << "]" << std::endl;
-                }
-                out << std::endl;
-                //if (counter >= 10) break;
-            }            
+            const auto& solution = solutions[width].front();
+            std::cout << "Width " << width << " : using the first solution out of " << solutions[width].size() << std::endl;
+            for (int i = 0; i < solution.cellWidth; i++) {
+                out << "[Column " << i + 1 << "]" << std::endl;
+                out << "NMOS : " << solution.nmos[i].name << "(" << solution.nmos[i].nfin << ") [" << solution.nmos[i].left << " " << solution.nmos[i].gate << " " << solution.nmos[i].right << "], ";
+                out << "PMOS : " << solution.pmos[i].name << "(" << solution.pmos[i].nfin << ") [" << solution.pmos[i].left << " " << solution.pmos[i].gate << " " << solution.pmos[i].right << "]" << std::endl;
+                out_json << "    {\n";
+                out_json << "      \"column\": " << (i + 1) << ",\n";
+                out_json << "      \"nmos\": {\"name\": \"" << solution.nmos[i].name << "\", \"fin\": " << solution.nmos[i].nfin
+                         << ", \"nets\": [\"" << solution.nmos[i].left << "\", \"" << solution.nmos[i].gate
+                         << "\", \"" << solution.nmos[i].right << "\"]},\n";
+                out_json << "      \"pmos\": {\"name\": \"" << solution.pmos[i].name << "\", \"fin\": " << solution.pmos[i].nfin
+                         << ", \"nets\": [\"" << solution.pmos[i].left << "\", \"" << solution.pmos[i].gate
+                         << "\", \"" << solution.pmos[i].right << "\"]}\n";
+                out_json << "    }";
+                if (i + 1 < solution.cellWidth) out_json << ",";
+                out_json << "\n";
+            }
         }
+        out_json << "  ]\n";
+        out_json << "}\n";
         out.close();
+        out_json.close();
 
     }
 }
@@ -629,7 +643,7 @@ void Placer::calculateState(PlaceUnit& prev, PlaceUnit& curr) {
 
                 PBaseOffset = prevDstate.rightPoffset + 1 - currState.leftPzero;
 
-                // Net difference
+                // dbNet difference
                 int NetGap = 0;
                 if (!prevDstate.rightPnet.empty() && prevDstate.rightPnet != currState.getPLeftNet()) NetGap = setting.NetDiffGap;
                 else NetGap = 0;
@@ -688,7 +702,7 @@ void Placer::calculateState(PlaceUnit& prev, PlaceUnit& curr) {
                 int Noffset;
                 int NBaseOffset = prevDstate.rightNoffset + 1 - currState.leftNzero;
 
-                // Net difference
+                // dbNet difference
                 if (!prevDstate.rightNnet.empty() && prevDstate.rightNnet != currState.getNLeftNet()) NetGap = setting.NetDiffGap;
                 else NetGap = 0;
 
@@ -827,7 +841,7 @@ void Placer::calculateState(PlaceUnit& prev, PlaceUnit& curr) {
                 // Calculate P offset
                 int PBaseOffset = prevDstate.rightPoffset + 1 - currState.leftPzero;
 
-                // Net difference
+                // dbNet difference
                 int NetGap;
                 if (!prevDstate.rightPnet.empty() && prevDstate.rightPnet != currState.getPLeftNet()) NetGap = setting.NetDiffGap;
                 else NetGap = 0;
@@ -920,7 +934,7 @@ void Placer::calculateState(PlaceUnit& prev, PlaceUnit& curr) {
                 int Noffset;
                 int NBaseOffset = prevDstate.rightNoffset + 1 - currState.leftNzero;
 
-                // Net difference
+                // dbNet difference
                 int NetGap;
                 if (!prevDstate.rightNnet.empty() && prevDstate.rightNnet != currState.getNLeftNet()) NetGap = setting.NetDiffGap;
                 else NetGap = 0;

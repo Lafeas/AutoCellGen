@@ -144,7 +144,7 @@ ASAP7 7.5-track standard cell library netlist : ./AutoCellGen/DATA/input/asap7sc
 
 Output files are saved in the folder noted below.
 
-**placement file**
+**placement files**
 
 ```
 ./AutoCellGen/MAKE/PLACE/output/placement
@@ -154,7 +154,14 @@ Output files are saved in the folder noted below.
 
 **placement file Description**
 
-The placement results are listed sequentially from the left column.
+The placer now writes both:
+
+- legacy text output (`*_w<width>.txt`)
+- JSON output (`*_w<width>.json`)
+
+For each width, the JSON file stores the first solution in a structured format that is easier to consume by downstream tools.
+
+The placement results are listed sequentially from the left column in the text format.
 
 Here is the output file format.
 
@@ -174,6 +181,22 @@ The placement file output example is represented below.
 NMOS : MMN0(2) [EN SE VSS], PMOS : MMP(2) [VDD SE net22]
 ...
 
+```
+
+JSON placement output example:
+
+```json
+{
+  "cell": "INVx1_ASAP7_75t_R",
+  "width": 2,
+  "columns": [
+    {
+      "column": 1,
+      "nmos": {"name": "MMN0", "fin": 2, "nets": ["EN", "SE", "VSS"]},
+      "pmos": {"name": "MMP", "fin": 2, "nets": ["VDD", "SE", "net22"]}
+    }
+  ]
+}
 ```
 
 
